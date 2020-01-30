@@ -37,4 +37,24 @@ router.post('/register', (req, res, next) => {
         });
 });
 
+router.post('/login', (req, res, next) => {
+    User.findOne({ email: req.body.email })
+        .then((user) => {
+            if (user === null) {
+                let err = new Error('User not found!');
+                err.status = 401;
+                return next(err);
+            }
+            bcrypt.compare(req.body.password, user.password, function (err, status) {
+                if (!status) {
+                    let err = new Error('Password does not match!');
+                    err.status = 401;
+                    return next(err);
+                }
+                let token = jwt.sign({ userId: user._id }, process.env.SECRET);
+                res.json({ status: 'Login Successful!', token: token });
+            });
+        }).catch(next);
+});
+
 module.exports = router;
