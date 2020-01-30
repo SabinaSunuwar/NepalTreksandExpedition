@@ -57,4 +57,9 @@ router.post('/login', (req, res, next) => {
         }).catch(next);
 });
 
+router.get('/me', auth.verifyUser, (req, res, next) => {
+    // res.json({ username: req.user.username, firstName: req.user.firstName, lastName: req.user.lastName });
+    res.json(req.user);
+});
+
 module.exports = router;
