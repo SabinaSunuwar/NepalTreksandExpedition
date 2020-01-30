@@ -33,5 +33,25 @@ router.post('/register', (req, res, next) => {
         });
 });
 
+router.post('/login', (req, res, next) => {
+    Agent.findOne({ email: req.body.email })
+        .then((agent) => {
+            if (agent === null) {
+                let err = new Error('Agent not found!');
+                err.status = 401;
+                return next(err);
+            }
+            bcrypt.compare(req.body.password, agent.password, function (err, status) {
+                if (!status) {
+                    let err = new Error('Password does not match!');
+                    err.status = 401;
+                    return next(err);
+                }
+                let token = jwt.sign({ agentId: agent._id }, process.env.SECRET);
+                res.json({ status: 'Login Successful!', token: token });
+            });
+        }).catch(next);
+});
+
 
 module.exports = router;
