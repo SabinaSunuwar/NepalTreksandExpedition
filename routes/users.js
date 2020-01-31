@@ -68,4 +68,11 @@ router.put('/me', auth.verifyUser, (req, res, next) => {
             res.json(req.user);
         })
 });
+    
+router.delete('/me', auth.verifyUser, (req, res, next) => {
+    User.findByIdAndDelete(req.user._id)
+        .then((user) => {
+            res.json({ status: 'User deleted!', user: user })
+        }).catch(next);
+});
 module.exports = router;
