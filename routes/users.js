@@ -30,7 +30,7 @@ router.post('/register', (req, res, next) => {
                     address3: req.body.address3,
                     image:req.body.image
                 }).then((user) => {
-                    let token = jwt.sign({ userId: user._id }, process.env.SECRET);
+                    let token = jwt.sign({ _id: user._id }, process.env.SECRET);
                     res.json({ status: "Signup Success!", token: token });
                 }).catch(next);
             });
@@ -51,11 +51,21 @@ router.post('/login', (req, res, next) => {
                     err.status = 401;
                     return next(err);
                 }
-                let token = jwt.sign({ userId: user._id }, process.env.SECRET);
-                res.json({ status: 'Login Successful!', token: token });
+                let token = jwt.sign({ _id: user._id }, process.env.SECRET);
+                res.json({ status: 'Login Successful!', token:token});
             });
         }).catch(next);
 });
 
+router.get('/me', auth.verifyUser, (req, res, next) => {
+    res.json(req.user);
+});
 
+
+router.put('/me', auth.verifyUser, (req, res, next) => {
+    User.findByIdAndUpdate(req.user._id, { $set: req.body }, { new: true })
+        .then((user) => {
+            res.json(req.user);
+        })
+});
 module.exports = router;
