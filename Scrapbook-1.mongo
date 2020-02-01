@@ -1,0 +1,2 @@
+db.users.insert({email: "admin", fullname: "Admin", password:"admin", conpassword:"admin", phone:"admin", mobile:"admin", address1:"admin", address2:"admin", address3:"admin", admin:"true"});
+    

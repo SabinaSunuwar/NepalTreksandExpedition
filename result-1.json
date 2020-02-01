@@ -1,0 +1,25 @@
+{
+	"result": {
+		"ok": 1,
+		"n": 1
+	},
+	"ops": [
+		{
+			"email": "admin",
+			"fullname": "Admin",
+			"password": "admin",
+			"conpassword": "admin",
+			"phone": "admin",
+			"mobile": "admin",
+			"address1": "admin",
+			"address2": "admin",
+			"address3": "admin",
+			"admin": "true",
+			"_id": "5e33e6a5f3180824892dff3f"
+		}
+	],
+	"insertedCount": 1,
+	"insertedIds": {
+		"0": "5e33e6a5f3180824892dff3f"
+	}
+}
