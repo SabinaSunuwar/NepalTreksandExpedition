@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('./models/treks');
+const Agent = require('./models/treks');
 
 module.exports.verifyAgent = (req, res, next) => {
     let authHeader = req.headers.authorization;
@@ -15,9 +15,9 @@ module.exports.verifyAgent = (req, res, next) => {
     } catch (err) {
         throw new Error('Token could not be verified!');
     }
-    Auth.findById(data._id)
-        .then((auth) => {
-            req.auth = auth;
+    Agent.findById(data._id)
+        .then((agent) => {
+            req.agent = agent;
             next();
         })
 }

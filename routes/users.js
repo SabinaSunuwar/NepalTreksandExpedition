@@ -62,17 +62,19 @@ router.get('/me', auth.verifyUser, (req, res, next) => {
 });
 
 
-router.put('/me', auth.verifyUser, (req, res, next) => {
+
+router.put('/update', auth.verifyUser, (req, res, next) => {
     User.findByIdAndUpdate(req.user._id, { $set: req.body }, { new: true })
         .then((user) => {
             res.json(req.user);
         })
 });
     
-router.delete('/me', auth.verifyUser, (req, res, next) => {
+router.delete('/delete', auth.verifyUser, (req, res, next) => {
     User.findByIdAndDelete(req.user._id)
         .then((user) => {
             res.json({ status: 'User deleted!', user: user })
         }).catch(next);
 });
+
 module.exports = router;

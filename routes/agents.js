@@ -24,7 +24,6 @@ router.post('/register', (req, res, next) => {
                     conpassword: hash,
                     contact:req.body.contact,
                     phone:req.body.phone,
-                    image:req.body.image
                 }).then((agent) => {
                     let token = jwt.sign({ agentId: agent._id }, process.env.SECRET);
                     res.json({ status: "Signup Success!", token: token });
@@ -52,6 +51,9 @@ router.post('/login', (req, res, next) => {
             });
         }).catch(next);
 });
+
+
+
 
 
 module.exports = router;

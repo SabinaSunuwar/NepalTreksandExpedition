@@ -18,6 +18,9 @@ const trekSchema = new mongoose.Schema({
     itinerary: {
         type: String,
         required: true
+    },
+    image: {
+        type: String
     }
 });
 

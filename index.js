@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const userRouter = require('./routes/users');
 const agentRouter = require('./routes/agents');
+const trekRouter = require('./routes/treks');
 const dotenv = require('dotenv').config();
 const uploadRouter = require('./routes/upload');
 const auth = require('./auth');
@@ -21,6 +22,7 @@ mongoose.connect(process.env.URL, { useNewUrlParser: true, useUnifiedTopology: t
 app.use('/users', userRouter);
 app.use('/upload', uploadRouter);
 app.use('/agents', agentRouter);
+app.use('/treks', trekRouter);
 app.use(auth.verifyUser);
 
 app.use((err, req, res, next) => {
