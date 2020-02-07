@@ -17,5 +17,15 @@ router.post('/addtrek', (req, res, next) => {
                 }).catch(next);
             });
 
+            router.get('/treks',(req,res,next)=>{
+                Trek.find({},(err,treks)=>
+                {
+                    if(err){
+                        res.json(next)
+                    }
+                    res.json(treks)
+                });
+            })
+
    
 module.exports = router;

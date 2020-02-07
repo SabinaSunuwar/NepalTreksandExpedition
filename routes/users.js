@@ -27,7 +27,6 @@ router.post('/register', (req, res, next) => {
                     mobile:req.body.mobile,
                     address1:req.body.address1,
                     address2: req.body.address2,
-                    address3: req.body.address3,
                     image:req.body.image
                 }).then((user) => {
                     let token = jwt.sign({ _id: user._id }, process.env.SECRET);
@@ -66,8 +65,8 @@ router.get('/me', auth.verifyUser, (req, res, next) => {
 router.put('/update', auth.verifyUser, (req, res, next) => {
     User.findByIdAndUpdate(req.user._id, { $set: req.body }, { new: true })
         .then((user) => {
-            res.json(req.user);
-        })
+            res.json({status: 'Profile Updated!', user:user});
+        }).catch(next);
 });
     
 router.delete('/delete', auth.verifyUser, (req, res, next) => {
