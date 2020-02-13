@@ -4,6 +4,7 @@ const userRouter = require('./routes/users');
 const agentRouter = require('./routes/agents');
 const trekRouter = require('./routes/treks');
 const contactRouter = require('./routes/contact');
+const blogRouter = require('./routes/blogs')
 const dotenv = require('dotenv').config();
 const uploadRouter = require('./routes/upload');
 const auth = require('./auth');
@@ -25,6 +26,7 @@ app.use('/upload', uploadRouter);
 app.use('/agents', agentRouter);
 app.use('/treks', trekRouter);
 app.use('/contact', contactRouter);
+app.use('/blogs', blogRouter);
 app.use(auth.verifyUser);
 
 app.use((err, req, res, next) => {

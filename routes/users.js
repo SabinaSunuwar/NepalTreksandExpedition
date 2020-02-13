@@ -53,7 +53,9 @@ router.post('/login', (req, res, next) => {
                 let token = jwt.sign({ _id: user._id }, process.env.SECRET);
                 res.json({ status: 'Login Successful!', token:token});
             });
-        }).catch(next);
+        }).catch((err)=>{
+            next()
+        });
 });
 
 router.get('/me', auth.verifyUser, (req, res, next) => {
@@ -68,12 +70,11 @@ router.put('/update', auth.verifyUser, (req, res, next) => {
             res.json({status: 'Profile Updated!', user:user});
         }).catch(next);
 });
-    
+                                                                                                         
 router.delete('/delete', auth.verifyUser, (req, res, next) => {
     User.findByIdAndDelete(req.user._id)
         .then((user) => {
             res.json({ status: 'User deleted!', user: user })
         }).catch(next);
 });
-
 module.exports = router;
